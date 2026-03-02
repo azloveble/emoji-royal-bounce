@@ -30,17 +30,22 @@ const EmojiPong = () => {
       updatePaddle(clientX - rect.left, rect.width);
     };
     const onMouse = (e: MouseEvent) => handleMove(e.clientX);
-    const onTouch = (e: TouchEvent) => { e.preventDefault(); handleMove(e.touches[0].clientX); };
+    const onTouch = (e: TouchEvent) => {
+      if (gameState === "playing") e.preventDefault();
+      handleMove(e.touches[0].clientX);
+    };
 
     el.addEventListener("mousemove", onMouse);
     el.addEventListener("touchmove", onTouch, { passive: false });
-    el.addEventListener("touchstart", onTouch, { passive: false });
+    if (gameState === "playing") {
+      el.addEventListener("touchstart", onTouch, { passive: false });
+    }
     return () => {
       el.removeEventListener("mousemove", onMouse);
       el.removeEventListener("touchmove", onTouch);
       el.removeEventListener("touchstart", onTouch);
     };
-  }, [updatePaddle]);
+  }, [updatePaddle, gameState]);
 
   // Game loop
   useEffect(() => {
