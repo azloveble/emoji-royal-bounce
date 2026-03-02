@@ -57,16 +57,17 @@ export function useEmojiPong() {
     setGameState("playing");
   }, []);
 
-  const updatePaddle = useCallback((x: number, canvasWidth: number) => {
-    paddleXRef.current = Math.max(
-      paddleWidthRef.current / 2,
-      Math.min(canvasWidth - paddleWidthRef.current / 2, x)
-    );
+  const updatePaddle = useCallback((_x: number, _canvasWidth: number) => {
+    // Auto mode: paddle follows ball automatically
   }, []);
 
   const tick = useCallback((cw: number, ch: number) => {
     const ball = ballRef.current;
     const pw = paddleWidthRef.current;
+
+    // Auto-move paddle to follow ball x position
+    const targetX = Math.max(pw / 2, Math.min(cw - pw / 2, ball.x));
+    paddleXRef.current += (targetX - paddleXRef.current) * 0.15;
     const px = paddleXRef.current;
 
     ball.x += ball.vx;
