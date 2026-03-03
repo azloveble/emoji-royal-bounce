@@ -11,8 +11,8 @@ const COLORS = [
   "hsl(30, 80%, 50%)",
 ];
 
-const INITIAL_SPEED = 4;
-const SPEED_INCREMENT = 0.2;
+const INITIAL_SPEED = 6;
+const SPEED_INCREMENT = 0.25;
 const INITIAL_PADDLE_WIDTH = 140;
 const MIN_PADDLE_WIDTH = 70;
 const PADDLE_SHRINK = 1;
