@@ -12,10 +12,10 @@ const COLORS = [
 ];
 
 const INITIAL_SPEED = 4;
-const SPEED_INCREMENT = 0.3;
-const INITIAL_PADDLE_WIDTH = 120;
-const MIN_PADDLE_WIDTH = 50;
-const PADDLE_SHRINK = 2;
+const SPEED_INCREMENT = 0.2;
+const INITIAL_PADDLE_WIDTH = 140;
+const MIN_PADDLE_WIDTH = 70;
+const PADDLE_SHRINK = 1;
 export const BALL_SIZE = 40;
 export const PADDLE_HEIGHT = 14;
 export const PADDLE_BOTTOM = 30;
@@ -66,8 +66,10 @@ export function useEmojiPong() {
     const pw = paddleWidthRef.current;
 
     // Auto-move paddle to follow ball x position
+    const speed = Math.sqrt(ball.vx ** 2 + ball.vy ** 2);
+    const trackSpeed = Math.min(0.35, 0.15 + speed * 0.008);
     const targetX = Math.max(pw / 2, Math.min(cw - pw / 2, ball.x));
-    paddleXRef.current += (targetX - paddleXRef.current) * 0.15;
+    paddleXRef.current += (targetX - paddleXRef.current) * trackSpeed;
     const px = paddleXRef.current;
 
     ball.x += ball.vx;
